@@ -12,8 +12,3 @@ public:
         return original == reversed;
     }
 };
-
-// Approach: negative numbers can never be palindromes because of the minus sign.
-// Built the reversed version of the number one digit at a time using modulo and
-// division, then compared it to the original. Used long instead of int for the
-// reversed number to avoid overflow on large numbers.
