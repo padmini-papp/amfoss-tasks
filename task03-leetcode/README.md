@@ -1,4 +1,4 @@
-# Leetcode Challenge
+## Leetcode Challenge
 
 I solved 5 problems on Leetcode for this task, three easy and two medium.
 
