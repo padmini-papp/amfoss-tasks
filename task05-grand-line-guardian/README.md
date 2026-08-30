@@ -1,4 +1,4 @@
-# Grand Line Guardian
+## Grand Line Guardian
 
 This is a terminal based system monitor, similar to htop, that shows live info about running processes on the machine.
 
@@ -8,13 +8,13 @@ The program loops continuously: it grabs a fresh list of every running process u
 
 <br>
 
-**Concepts learned**
+### **Concepts learned**
 
 Reading OS level process info through psutil instead of raw system calls, getting a live snapshot of processes with process_iter, refreshing a terminal display by clearing and reprinting instead of using a proper UI library, and handling a KeyboardInterrupt so the program exits cleanly instead of throwing an error when the user presses Ctrl+C.
 
 <br>
 
-**How to run**
+### **How to run**
 
 pip install psutil
 
