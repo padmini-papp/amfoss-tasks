@@ -18,7 +18,7 @@ Testing with a 16x16 matrix, naive multiplication actually finished fastest, eve
 
 Getting the quadrant splitting and recombining logic right took some care, especially for Strassen's algorithm, which has a lot of very similar looking addition and subtraction steps across its seven sub-multiplications, so it was easy to mix one up.
 
-###How to run
+### How to run
 
 python3 matrix.py
 
