@@ -1,38 +1,18 @@
-# TimeFlow Wallpaper Sync
+TimeFlow Wallpaper Sync
 
-Task 12 for amFOSS. A Python script that watches a text file and displays its content directly on the desktop wallpaper, along with a live updating clock.
+This is a script that watches a text file and displays its content directly on the desktop wallpaper, along with a live clock.
 
-## Approach
+I used Pillow to generate a new image every second, drawing the current time and date at the top, and whatever text is inside the given file below that. To actually apply it as the desktop wallpaper, I used osascript through Python's subprocess module, which lets you run AppleScript commands, the scripting language macOS uses to control system settings like the wallpaper.
 
-The script generates a new image using Pillow every second. It draws:
-1. The current time (updating every second) and date at the top
-2. The contents of a user-provided text file below that
+The main loop checks two things every second, whether the text file's last modified time has changed, meaning the user edited it, and whether the clock's second value has ticked over. If either changed, it regenerates the image and reapplies it as the wallpaper.
 
-It then uses macOS's AppleScript (via the osascript command, run through Python's subprocess module) to set this generated image as the desktop wallpaper.
+Issues faced
 
-The main loop checks two things every second:
-1. Has the text file's last-modified timestamp changed? (meaning the user edited it)
-2. Has the clock's second value changed? (to keep the time live)
+The first time I ran it, nothing happened on my actual desktop, even though the generated image looked correct when I opened it separately in Preview. It turned out macOS was silently blocking the script from changing the wallpaper because Terminal didn't have permission. I had to go into System Settings, Privacy and Security, Automation, and allow Terminal to control System Events before it worked properly.
 
-If either is true, it regenerates the image and reapplies it as the wallpaper. This means the wallpaper updates automatically both when you edit your notes file, and continuously to keep the clock accurate.
-
-## Challenges faced
-
-Getting macOS to actually accept the new wallpaper wasn't obvious at first, since nothing happened on the first try. Had to check System Settings > Privacy & Security > Automation to make sure Terminal had permission to control System Events before the AppleScript command would actually work.
-
-## How to run
+How to run
 
 pip install pillow
-python3 wallpaper_sync.py <path_to_text_file>
-
-Example:
 python3 wallpaper_sync.py my_notes.txt
 
 Press Ctrl+C to stop watching.
-
-## Concepts learned
-
-- Using Pillow (PIL) to generate images with text drawn on them, including using custom fonts
-- Using Python's subprocess module to call an AppleScript command (osascript) from Python, to interact with macOS system settings
-- Watching a file for changes using os.path.getmtime() instead of a dedicated file-watching library
-- macOS automation permissions and how they can silently block scripts from controlling system settings until explicitly granted

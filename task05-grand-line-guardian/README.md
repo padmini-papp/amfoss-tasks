@@ -1,36 +1,14 @@
-# Grand Line Guardian
+Grand Line Guardian
 
-Task 05 for amFOSS. A terminal based system process monitor, similar to htop/btop, themed around tracking "ships" (processes) sailing the Grand Line.
+This is a terminal based system monitor, similar to htop, that shows live info about running processes on the machine.
 
-## Approach
+I used a Python library called psutil, which reads process information straight from the operating system, so there was no need to write any low level system calls myself. The program loops continuously: it grabs a fresh list of every running process using psutil.process_iter(), sorts them by CPU usage so the busiest ones show up first, clears the terminal and reprints a table with PID, process name, CPU percent, and memory percent, along with the total number of active processes. It refreshes every second and can be stopped cleanly with Ctrl+C.
 
-Used Python's psutil library, which handles reading process information (PID, name, CPU usage, memory usage) from the operating system directly, so I didn't have to write low level system calls myself.
+Concepts learned
 
-The program runs in a loop:
-1. Get a fresh snapshot of all running processes using psutil.process_iter()
-2. Sort them by CPU usage, highest first, so the busiest processes show at the top
-3. Clear the terminal screen and print a formatted table of the top 20 processes
-4. Show the total count of all active processes
-5. Wait 1 second, then repeat
+Reading OS level process info through psutil instead of raw system calls, getting a live snapshot of processes with process_iter, refreshing a terminal display by clearing and reprinting instead of using a proper UI library, and handling a KeyboardInterrupt so the program exits cleanly instead of throwing an error when the user presses Ctrl+C.
 
-Ctrl+C stops the monitor cleanly with a shutdown message instead of an ugly error trace.
-
-## Displayed info
-
-- Process ID (PID)
-- Process Name
-- CPU %
-- Memory %
-- Total active process count
-
-## Concepts learned
-
-- psutil library for reading OS-level process information in Python without writing raw system calls
-- process_iter() for getting a live snapshot of all running processes
-- Basic terminal UI refresh technique (clearing the screen and reprinting) to simulate a live updating dashboard
-- Handling KeyboardInterrupt (Ctrl+C) to exit a loop cleanly instead of crashing
-
-## How to run
+How to run
 
 pip install psutil
 python3 guardian.py

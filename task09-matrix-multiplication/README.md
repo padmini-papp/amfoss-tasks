@@ -1,46 +1,25 @@
-# Matrix Multiplication Showdown
+Matrix Multiplication Showdown
 
-Task 09 for amFOSS. Implements matrix multiplication three different ways and compares their runtime.
+This implements matrix multiplication three different ways and compares how fast each one runs.
 
-## Algorithms used
+Naive multiplication is the standard triple nested loop, going through every row and column combination directly, which runs in O(n cubed) time.
 
-1. Naive Matrix Multiplication - the standard triple nested loop approach, O(n^3) time complexity. For every cell in the result, loop through and sum up the products of the corresponding row and column.
+Divide and conquer splits each matrix into four quadrants recursively, multiplies the quadrants using eight recursive multiplications, then combines the results back together. Still O(n cubed) technically, just structured differently.
 
-2. Divide and Conquer - splits each matrix into 4 quadrants recursively, multiplies the quadrants (8 recursive multiplications), and combines them back together. Still technically O(n^3) in terms of complexity, but structured differently.
+Strassen's algorithm uses the same divide and conquer idea but only needs seven recursive multiplications instead of eight, by using some extra additions and subtractions to make up the difference. This brings the time complexity down to about O(n to the power 2.81), which is theoretically better than naive for large enough matrices.
 
-3. Strassen's Algorithm - similar divide and conquer idea, but uses a clever trick to only need 7 recursive multiplications instead of 8, using addition/subtraction to make up for it. This brings the complexity down to about O(n^2.81), which is better than naive for very large matrices.
+One thing to note is that divide and conquer and Strassen's only work correctly when the matrix size is a power of two, since they depend on splitting the matrix exactly in half each time.
 
-Note: Divide and Conquer and Strassen's only work correctly when the matrix size is a power of 2 (2, 4, 8, 16...), since they rely on splitting the matrix exactly in half each time.
+Results and an interesting finding
 
-## Benchmarking approach
+Testing with a 16x16 matrix, naive multiplication actually finished fastest, even though Strassen's has better theoretical complexity. This is because in Python specifically, the overhead of all the recursive function calls and list slicing in divide and conquer and Strassen's outweighs their algorithmic advantage at this size. That advantage would probably only show up with much bigger matrices, or in a compiled language like C where function call overhead is much lower.
 
-The program generates two random matrices of the same size, runs all three multiplication methods on them, and times each one using Python's time.time(). It also checks that all three methods produce the exact same result matrix, to verify correctness.
+Challenges faced
 
-## Results
+Getting the quadrant splitting and recombining logic right took some care, especially for Strassen's algorithm, which has a lot of very similar looking addition and subtraction steps across its seven sub-multiplications, so it was easy to mix one up.
 
-Tested with a 16x16 matrix:
-
-Naive Matrix Multiplication: 0.44 ms
-Divide and Conquer: 5.48 ms
-Strassen's Algorithm: 5.82 ms
-
-Verification Status: PASSED
-Fastest Method: Naive
-
-Interesting finding: naive multiplication was actually the fastest at this size, even though Strassen's has better theoretical time complexity. This is because in Python specifically, the recursive function calls and list slicing used in Divide and Conquer and Strassen's have a lot of overhead, which outweighs their algorithmic advantage until you get to much bigger matrix sizes, or use a lower level language.
-
-## Challenges faced
-
-Getting the indices right for combining matrix quadrants back together after splitting was tricky, and Strassen's algorithm specifically has a lot of very similar looking add/subtract steps for the 7 sub-multiplications, so it was easy to swap something by mistake and had to be careful to match it exactly against the standard formula.
-
-## How to run
+How to run
 
 python3 matrix.py
 
-Then enter a matrix size when prompted (should be a power of 2 like 4, 8, or 16).
-
-## Resources used and concepts learned
-
-- Learned how Strassen's algorithm reduces the number of multiplications needed using addition and subtraction tricks
-- Learned about recursive matrix splitting for divide and conquer approaches
-- Learned that theoretical time complexity doesn't always translate directly into real world speed, especially in interpreted languages like Python where overhead matters a lot at smaller scales
+Then enter a matrix size when prompted, it should be a power of two like 4, 8, or 16.
