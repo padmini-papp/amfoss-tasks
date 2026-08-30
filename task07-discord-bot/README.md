@@ -1,4 +1,4 @@
-# Berry Broker - Dank Memer style Discord Bot
+## Berry Broker - Dank Memer style Discord Bot
 
 This is my Discord bot for Task 07. Its a fake pirate economy bot, kind of like Dank Memer but One Piece themed. Every member of the server is treated like a pirate, they start with some berries (the currency), and can earn more, gamble it away, or steal from other people using different commands.
 
