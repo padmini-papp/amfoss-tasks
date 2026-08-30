@@ -1,19 +1,7 @@
-Introduction
+INTRODUCTION
 
-I'm Padmini, and I'm here doing the amFOSS Praveshan tasks.
+I'm Padmini, currently pursuing my studies while working through the amFOSS Praveshan tasks. I enjoy exploring technology, solving problems, and learning by actually trying things out rather than just reading about them. I'm still figuring out which areas of tech I enjoy the most, but I like the process of learning something new and slowly getting better at it.
 
 Tell us about a problem you've noticed around you that you would genuinely like to solve. Why does it matter?
 
-One problem I've noticed is how scattered and inconsistent information is across different apps and platforms when trying to plan or track something, like a schedule or a project. I ended up building something for one of these tasks that pulls notes directly onto a live desktop wallpaper so the info stays visible without needing to open another app, and it made me realize how much friction exists just from information being locked away in different places.
-
-Describe something you've learned outside a classroom or formal course. How did you learn it?
-
-Through these tasks specifically I learned a lot about Git that I never properly understood before, like branches, merge conflicts, and how to actually investigate a repository's history. I learned it by getting stuck, reading error messages carefully, and asking for help understanding what each command was actually doing instead of just copying it.
-
-How do you intend to contribute back to the club?
-
-I'd like to help other beginners the way I was helped while working through these tasks, especially with Linux and Git basics, since those took me the longest to get comfortable with.
-
-What are your fields of interest, and how do you plan on working on them?
-
-I'm interested in backend development and automation, and I plan on working on them by building more small real projects like the ones in these tasks, rather than just going through tutorials.
+One problem I've noticed is how difficult it can be to keep track of information when it is spread across different apps, notes, chats, and platforms. Even something as simple as finding a schedule, reminder, or important piece of information can sometimes mean searching through multiple places.
