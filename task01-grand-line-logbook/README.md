@@ -1,49 +1,23 @@
 # Task 1
 
-## Level 1: Among the four sectors, all the devil fruits files have similar names and description, so just using cat on each of them doesn't help.
+Level 1 - among the four sectors, all the devil fruit files have similar names and descriptions, so just using cat on each of them doesn't help
 
-At first I ran ls -la inside each sectors and noticed that almost all files had the same permission rw-r--r-- except one file in sector_c, devil_fruit_6.txt which has the permission rwxr-xr-x and also showed up in green in the terminal, since executable files are color coded differently.
+At first I ran ls -la inside each sector and noticed that almost all files had the same permission rw-r--r-- except one file in sector_c, devil_fruit_6.txt, which had rwxr-xr-x and also showed up in green in the terminal since executable files are color coded differently
 
-I figured this was the real one since the readme said the genuine fruit still has "the power to awaken itself", meaning it can actually be run/executed, unlike the fake ones which are just locked files.
+I figured this was the real one since the readme said the genuine fruit still has the power to awaken itself, meaning it can actually be run, unlike the fake ones which are just locked files. Ran ./eat.sh sector_C/devil_fruit_6.txt and got the flag ONE_PIECE{GITO_GITO_NO_AWAKENING}. If I had picked the wrong file it just would've said nothing happened
 
-Ran:
-./eat.sh sector_C/devil_fruit_6.txt
+Level 2 - feast_manifest.txt in the main folder was a red herring, just some random food items listed that didn't lead anywhere
 
-Got the flag:
-ONE_PIECE{GITO_GITO_NO_AWAKENING}
+Running git branch -a revealed a hidden branch called whiskey_peak_investigation that wasn't visible on the normal branch. Checking it out revealed a hidden folder called .baroque_works_cache, which doesn't show up unless you use ls -la since it's a dotfile. Inside was a script called unlock_vault.sh
 
-If I had picked the wrong file it just would've said nothing happened.
+I read it with cat before running it since you shouldn't run scripts blindly. It checks an environment variable called AWAKENING_SIGNATURE, my level 1 flag, hashes it with sha256sum, and compares it against a hardcoded hash. If it matches, it decrypts a flag using openssl with my flag as the password, and writes the decrypted flag into line 42 of a log file
 
----
+I had to export the variable first since environment variables only exist for the current terminal session. Running the script gave a sed error at first, turns out on Mac, sed -i needs an extra empty argument that Linux doesn't need, since Mac uses a different version of sed. After fixing that inside the script it ran cleanly and dropped two log files. Using diff to compare them line by line, I found the difference on line 42: BAROQUE_DIAL{SPLIT_TIMELINE_MISDIRECTION}
 
-## Level 2: feast_manifest.txt in the main folder was a red herring, just some random food items listed, didn't lead anywhere.
+Level 3 - Wax_Jungle on the main branch only had an empty .gitkeep file. Checking git branch -a again revealed another hidden branch, little_garden, matching this level's real name in the story. Checking it out revealed a bunch of nested folders full of report log files, all saying generic things like SYSTEM_DUMP FALSE ALARM. Instead of checking each one manually I searched for the file that didn't match that pattern using grep -rL SYSTEM_DUMP, which searches recursively and lists files that do not contain the given text. That found agent_manifest.log buried deep in a nested folder, which had a SECURITY_TAG in base64 that decoded back into my level 2 flag, confirming it was genuine, along with PONEGLYPH_FRAGMENT_I, saved for later
 
-Ran git branch -a and found a hidden branch called whiskey_peak_investigation that wasn't visible on the normal branch. Checked it out using git checkout whiskey_peak_investigation.
+Level 4 - found one file, puffing_tom_blueprints, with no extension at all. Cat showed garbled binary text but one readable string stood out, step2_blueprints.tar. Using the file command instead of guessing from the name confirmed it was gzip compressed data. After renaming and extracting it I got a zip file, extracted that too, and found secret_link.txt containing PONEGLYPH_FRAGMENT_II, and frame_specs.dat, which was genuine plain text but just a decoy message. No traditional flag this level, the reward was the second fragment
 
-That revealed a hidden folder called .baroque_works_cache (it's a dotfile so it doesn't show up unless you use ls -la). Inside was a script called unlock_vault.sh.
+Level 5 - no Enies_Lobby folder existed on the main branch. Checking git log with stat showed nothing useful either. I remembered a third unexplored branch from earlier, alternate_timeline, which matched the story's another version of history theme. Checking it out revealed Enies_Lobby, containing a decoy script and a Python script that decodes a base64 encoded, XOR scrambled input. Combining my two saved fragments and feeding them in gave back a URL to another GitHub repo instead of a normal flag
 
-Read it with cat before running it since you shouldn't run scripts blindly. The script checks an environment variable called AWAKENING_SIGNATURE (my level 1 flag), hashes it using sha256sum and compares it against a hardcoded hash value inside the script. Hashing basically turns any text into a fixed scrambled fingerprint, and you can't reverse it back, so this is how the script verifies I had the right flag without storing it in plain text.
-
-If the hash matches, it decrypts a flag using openssl (which is actual reversible encryption, different from hashing) using my flag as the password, and writes the decrypted flag into line 42 of a log file.
-
-Had to set the variable first since env variables only exist for the current terminal session:
-export AWAKENING_SIGNATURE=ONE_PIECE_GITO_GITO_NO_AWAKENING
-
-Ran the script and got a sed error. Turns out on Mac, sed -i needs an extra empty argument right after it that Linux doesn't need, since Mac uses a different version of sed (BSD sed vs GNU sed on Linux). Fixed the line inside the script to add the empty quotes after -i.
-
-Ran it again, worked with no errors, and it dropped two log files that were supposed to be identical except for the flag. Used diff to compare them line by line instead of checking manually:
-diff marine_intercept.log bounty_hunter_feed.log
-
-Found the difference on line 42:
-BAROQUE_DIAL_SPLIT_TIMELINE_MISDIRECTION
-
----
-
-## Level 3: Wax_Jungle folder on the main branch only had an empty file called .gitkeep, so nothing useful there.
-
-Checked git branch -a again since the same trick worked in level 2, and found another hidden branch called little_garden, which actually matches this level's real name in the readme story.
-
-Checked it out and found a bunch of nested folders with hundreds of report log files scattered everywhere, all saying generic stuff like SYSTEM_DUMP FALSE ALARM or SYSTEM_DUMP NO RECORDS FOUND. Since they all looked the same, instead of trying to guess or manually check every file, I searched for the one file that DIDN'T follow that same pattern:
-grep -rL SYSTEM_DUMP .
-
-grep -r searches recursively through all subfolders, and -L is the opposite of a normal search, it lists files that do
+Level 6 - cloned the new repo and found a branch called pirate_king_path alongside the current ancient_history. Merging it in caused real conflicts in two files, both showing two half words that needed combining. I edited both manually with nano, removed the conflict markers, joined the half words correctly, and committed the resolution. Running the included victory script and entering the combined password gave the final flag, confirming everything was correct
