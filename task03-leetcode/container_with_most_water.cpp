@@ -20,7 +20,3 @@ public:
     }
 };
 
-// Approach: used two pointers, one at each end. Water held is width times the
-// shorter of the two heights. Moved whichever pointer had the smaller height
-// inward, since that's the one limiting how much water can be held, and kept
-// track of the best answer found. Time complexity O(n).
