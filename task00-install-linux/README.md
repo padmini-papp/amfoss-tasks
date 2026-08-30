@@ -1,4 +1,4 @@
-Task 00 - Install Linux
+## Task 00 - Install Linux
 
 I'm using a MacBook Air, and since the task says it's fine to do everything on either Linux or macOS, I didn't need to install Linux separately.
 
