@@ -1,4 +1,4 @@
-Operation Pixel Merge
+##Operation Pixel Merge
 
 There were 86 images in the assets folder, each 512x512, with a single colored dot on a white background, except for a few that were completely blank white. The files were named like Layer 1.png, Layer 2.png and so on, but sorting them the normal way puts them in the wrong order since it goes alphabetically instead of numerically, so I had to pull the number out of each filename with a regex and sort by that instead.
 

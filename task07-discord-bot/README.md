@@ -2,7 +2,7 @@
 
 This is my Discord bot for Task 07. Its a fake pirate economy bot, kind of like Dank Memer but One Piece themed. Every member of the server is treated like a pirate, they start with some berries (the currency), and can earn more, gamble it away, or steal from other people using different commands.
 
-## Commands
+### Commands
 
 !bounty - check your current berry balance
 !setsail - claim your daily berries (once every 24 hours)
@@ -13,7 +13,7 @@ This is my Discord bot for Task 07. Its a fake pirate economy bot, kind of like 
 !worstgeneration - shows the top 5 richest users on the server
 !logpose - pulls a random character's info from the One Piece API
 
-## How to run it
+### How to run it
 
 1. Clone this repo
 2. Make a virtual environment: python3 -m venv venv
@@ -22,7 +22,7 @@ This is my Discord bot for Task 07. Its a fake pirate economy bot, kind of like 
 5. Make a .env file and put your bot token in it like this: DISCORD_TOKEN=your_token_here
 6. Run it: python3 bot.py
 
-## File structure
+### File structure
 
 bot.py - main file, connects to discord and loads the cogs
 database.py - handles all the sqlite database stuff
@@ -32,7 +32,7 @@ cogs/fun.py - roast, worstgeneration, logpose commands
 .env - has my bot token, not pushed to github
 .gitignore - ignores venv and .env
 
-## Database
+### Database
 
 Uses sqlite (bot.db), one table called users:
 - user_id - discord id of the user, primary key
